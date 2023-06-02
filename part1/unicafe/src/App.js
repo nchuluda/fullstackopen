@@ -1,12 +1,10 @@
 import { useState } from 'react'
 
-const Button = (props) => (
-  <button onClick={props.handleClick}>{props.text}</button>
-)
-
-const Display = ({counter, category}) => <div>{category} {counter}</div>
+const Button = (props) => <button onClick={props.handleClick}>{props.text}</button>
 
 const Header = ({text}) => (<h1>{text}</h1>)
+
+const StatisticLine = (props) => <div>{props.text} {props.value}</div>
 
 const Statistics = (props) => {
   if (props.totalResponses === 0) {
@@ -14,12 +12,15 @@ const Statistics = (props) => {
       <div>No feedback given</div>
     )
   }
-  return (
-    <>
-    <div>{props.all} {props.totalResponses}</div>
-    <div>{props.average} {props.resultAverage}</div>
-    <div>{props.positive} {props.resultPositive}</div>
-    </>
+  return ( 
+    <div>
+    <StatisticLine text="good" value={props.good} />
+    <StatisticLine text="neutral" value={props.neutral}/>
+    <StatisticLine text="bad" value={props.bad}/>
+    <StatisticLine text="all" value={props.totalResponses} />
+    <StatisticLine text="average" value={props.averageResponses} />
+    <StatisticLine text="percent" value={props.percentPositive} />
+    </div>
   )
 }
 
@@ -47,15 +48,12 @@ const App = () => {
       <Button handleClick={increaseNeutralByOne} text="neutral" />
       <Button handleClick={increaseBadByOne} text="bad" />
       <Header text="statistics" />
-      <Display category="good" counter={good} />
-      <Display category="neutral" counter={neutral} />
-      <Display category="bad" counter={bad} />
-      <Statistics all="all"
+      <Statistics good={good}
+                  neutral={neutral}
+                  bad={bad}
                   totalResponses={totalResponses} 
-                  average="average"
-                  resultAverage={averageResponses}
-                  positive="positive"
-                  resultPositive={percentPositive} />
+                  averageResponses={averageResponses}
+                  percentPositive={percentPositive} />
 
     </div>
   )
