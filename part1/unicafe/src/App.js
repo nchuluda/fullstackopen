@@ -4,7 +4,7 @@ const Button = (props) => <button onClick={props.handleClick}>{props.text}</butt
 
 const Header = ({text}) => (<h1>{text}</h1>)
 
-const StatisticLine = (props) => <div>{props.text} {props.value}</div>
+const StatisticLine = (props) => <tr><td>{props.text}</td><td>{props.value}</td></tr>
 
 const Statistics = (props) => {
   if (props.totalResponses === 0) {
@@ -14,12 +14,16 @@ const Statistics = (props) => {
   }
   return ( 
     <div>
-    <StatisticLine text="good" value={props.good} />
-    <StatisticLine text="neutral" value={props.neutral}/>
-    <StatisticLine text="bad" value={props.bad}/>
-    <StatisticLine text="all" value={props.totalResponses} />
-    <StatisticLine text="average" value={props.averageResponses} />
-    <StatisticLine text="percent" value={props.percentPositive} />
+      <table>
+        <tbody>
+          <StatisticLine text="good" value={props.good} />
+          <StatisticLine text="neutral" value={props.neutral}/>
+          <StatisticLine text="bad" value={props.bad}/>
+          <StatisticLine text="all" value={props.totalResponses} />
+          <StatisticLine text="average" value={props.averageResponses} />
+          <StatisticLine text="percent" value={props.percentPositive} />
+        </tbody>
+      </table>
     </div>
   )
 }
