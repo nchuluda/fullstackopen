@@ -8,6 +8,8 @@ const Display = ({counter, category}) => <div>{category} {counter}</div>
 
 const Header = ({text}) => (<h1>{text}</h1>)
 
+const Statistics = ({statistic, result}) => <div>{statistic} {result}</div>
+
 const App = () => {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0)
@@ -35,9 +37,9 @@ const App = () => {
       <Display category="good" counter={good} />
       <Display category="neutral" counter={neutral} />
       <Display category="bad" counter={bad} />
-      <Display category="all" counter={totalResponses} />
-      <Display category="average" counter={averageResponses} />
-      <Display category="positive" counter={percentPositive} />
+      <Statistics statistic="all" result={totalResponses} />
+      <Statistics statistic="average" result={averageResponses} />
+      <Statistics statistic="positive" result={percentPositive} />
     </div>
   )
 }
