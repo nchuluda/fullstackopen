@@ -6,9 +6,7 @@ const Button = (props) => (
 
 const Display = ({counter, category}) => <div>{category} {counter}</div>
 
-const Header = ({}) => (<h1>give feedback</h1>)
-
-const Statistics = () => (<h1>statistics</h1>)
+const Header = ({text}) => (<h1>{text}</h1>)
 
 const App = () => {
   // save clicks of each button to its own state
@@ -29,11 +27,11 @@ const App = () => {
 
   return (
     <div>
-      <Header />
+      <Header text="give feedback"/>
       <Button handleClick={increaseGoodByOne} text="good" />
       <Button handleClick={increaseNeutralByOne} text="neutral" />
       <Button handleClick={increaseBadByOne} text="bad" />
-      <Statistics />
+      <Header text="statistics" />
       <Display category="good" counter={good} />
       <Display category="neutral" counter={neutral} />
       <Display category="bad" counter={bad} />
