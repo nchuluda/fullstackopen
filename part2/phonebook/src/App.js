@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import Error from './components/Error'
 import Filter from './components/Filter'
 import Notification from './components/Notification'
 import PersonForm from './components/PersonForm'
@@ -7,10 +8,11 @@ import Persons from './components/Persons'
 import phonebookService from './services/phonebook'
 
 const App = () => {
+  const [error, setError] = useState(null)
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
-  const [notification, setNotification] = useState('')
+  const [notification, setNotification] = useState(null)
   const [filter, setFilter] = useState('')
 
   useEffect(() => {
@@ -41,11 +43,15 @@ const App = () => {
             setNewNumber('')
           })
           .then(notification => {
-            setNotification(
-              `'${newName}' was updated`
-            )
+            setNotification(`'${newName}' was updated`)
             setTimeout(() => {
               setNotification(null)
+            }, 3000)
+          })
+          .catch(error => {
+            setError(`'${newName}' was not updated`)
+            setTimeout(() => {
+              setError(null)
             }, 3000)
           })
       }
@@ -58,12 +64,17 @@ const App = () => {
             setNewNumber('')
         })
           .then(notification => {
-            setNotification(
-              `'${newName}' added`
-            )
+            setNotification(`'${newName}' added`)
             setTimeout(() => {
               setNotification(null)
             }, 3000)
+        })
+        .catch(error => {
+          console.log(error)
+          setError(`'${newName}' was not added`)
+          setTimeout(() => {
+            setError(null)
+          }, 3000)
         })
     }
   }
@@ -73,6 +84,18 @@ const App = () => {
       phonebookService
         .remove(person.id)
         .then(setPersons(persons.filter((p) => p.id !== person.id)))
+        .then(notification => {
+          setNotification(`'${person.name}' deleted`)
+          setTimeout(() => {
+            setNotification(null)
+          }, 3000)
+        })
+        .catch(error => {
+          setError(`'${person.name}' was not deleted`)
+          setTimeout(() => {
+            setError(null)
+          }, 3000)
+        })
     } 
   }
 
@@ -96,6 +119,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Notification message={notification} />
+      <Error message={error} />
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
       <h3>Add a new</h3>
       <PersonForm 
