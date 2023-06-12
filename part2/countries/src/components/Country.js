@@ -1,6 +1,18 @@
+import axios from 'axios'
+import React, { useState, useEffect } from 'react'
 import CountryProfile from "./CountryProfile"
 
 const Country = ({ countriesToShow, showCountry }) => {
+    // const [weather, setWeather] = useState(null)
+    
+
+    // useEffect(() => {
+    //     const api_key = process.env.REACT_APP_API_KEY
+
+    //     axios
+    //         .get(`https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}`)
+    // })
+
     if (countriesToShow.length > 10) {
         return (
             <div>
