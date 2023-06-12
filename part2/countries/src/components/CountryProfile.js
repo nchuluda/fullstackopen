@@ -19,6 +19,10 @@ const CountryProfile = ({ country }) => {
         
     }, [capital])
 
+    if (!weather) {
+        return null
+      }
+
     return (
         <>
             <h1>{country.name.common}</h1>
@@ -32,9 +36,9 @@ const CountryProfile = ({ country }) => {
             </ul>
             <img src={country.flags.png} width="150px" />
             <h3>Weather in {country.capital}</h3>
-            <p>Temp: {weather?.main.temp} Celsius</p>
+            <p>Temp: {weather.main.temp} Celsius</p>
             <img src={iconUrl} />
-            <p>Wind: {weather?.wind.speed} m/s</p>
+            <p>Wind: {weather.wind.speed} m/s</p>
         </>
     )
 }
