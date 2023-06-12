@@ -24,11 +24,21 @@ const App = () => {
     const personObject = {
       name: newName,
       number: newNumber,
-      id: newName
+      id: newName.toLowerCase()
     }
     
     if (persons.some(p => p.name.toLowerCase() === newName.toLowerCase())) {
-      alert(`${newName} is already added to phonebook`)
+      if (window.confirm(`${newName} is already added to phonebook, replace the old phone number with a new one?`)) {
+        phonebookService
+          .update(personObject.id, personObject)
+          .then(returnedPerson => {
+            setPersons(
+              persons.map((p) => (p.id !== personObject.id ? p : returnedPerson))
+            )
+            setNewName('')
+            setNewNumber('')
+          })
+      }
     } else {
         phonebookService
           .create(personObject)
