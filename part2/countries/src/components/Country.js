@@ -1,6 +1,6 @@
 import CountryProfile from "./CountryProfile"
 
-const Country = ({ countriesToShow }) => {
+const Country = ({ countriesToShow, showCountry }) => {
     if (countriesToShow.length > 10) {
         return (
             <div>
@@ -18,7 +18,11 @@ const Country = ({ countriesToShow }) => {
     return (
         <>
         {countriesToShow.map(country => 
-          <div key={country.name.official}>{country.name.common}</div>)}
+            <div key={country.name.official}>
+                {country.name.common}
+                <button onClick={() => showCountry(country.name.common)}>show</button>
+            </div>
+        )}
         </>
     )
 }

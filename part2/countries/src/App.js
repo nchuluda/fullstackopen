@@ -20,6 +20,10 @@ const App = (props) => {
     setFilter(event.target.value)
   }
 
+  const showCountry = (country) => {
+    setFilter(country)
+  }
+
   const countriesToShow = (filter.length > 0) 
   ? countries.filter(country => country.name.common.toLowerCase().includes(filter.toLowerCase()))
   : countries
@@ -33,7 +37,7 @@ const App = (props) => {
           />
       </div>
 
-      <Country countriesToShow={countriesToShow} />
+      <Country countriesToShow={countriesToShow} showCountry={showCountry} />
 
       
     </>
