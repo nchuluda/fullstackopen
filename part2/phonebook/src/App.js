@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Filter from './components/Filter'
+import Notification from './components/Notification'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import phonebookService from './services/phonebook'
@@ -9,6 +10,7 @@ const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [notification, setNotification] = useState('')
   const [filter, setFilter] = useState('')
 
   useEffect(() => {
@@ -38,6 +40,14 @@ const App = () => {
             setNewName('')
             setNewNumber('')
           })
+          .then(notification => {
+            setNotification(
+              `'${newName}' was updated`
+            )
+            setTimeout(() => {
+              setNotification(null)
+            }, 3000)
+          })
       }
     } else {
         phonebookService
@@ -46,6 +56,14 @@ const App = () => {
             setPersons(persons.concat(returnedPerson))
             setNewName('')
             setNewNumber('')
+        })
+          .then(notification => {
+            setNotification(
+              `'${newName}' added`
+            )
+            setTimeout(() => {
+              setNotification(null)
+            }, 3000)
         })
     }
   }
@@ -77,6 +95,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notification} />
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
       <h3>Add a new</h3>
       <PersonForm 
